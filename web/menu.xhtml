@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:body>
+            <ui:composition>
+                <h:form>
+                    <p:commandButton value="Refresh" onclick="doReload" ajax="false"/>
+                    <br/>
+                <p:panelMenu style="width:300px" >
+                    <p:submenu  label="Ajax Menuitems">
+                        <p:menuitem value="Save"/>
+                        <p:menuitem value="Update"/>
+                    </p:submenu>
+                    <p:submenu label="Non-Ajax Menuitem">
+                        <p:menuitem value="Delete"/>
+                    </p:submenu>
+                    <p:separator />
+                    <p:submenu label="Navigations" >
+                        <p:submenu label="Links">
+                            <p:submenu label="PrimeFaces" >
+                                <p:menuitem value="Home" url="http://www.primefaces.org"/>
+                                <p:menuitem value="Docs" url="http://www.primefaces.org/documentation"/>
+                                <p:menuitem value="Download" url="http://www.primefaces.org/downloads"/>
+                                <p:menuitem value="Support" url="http://www.primefaces.org/support"/>
+                            </p:submenu>
+                        </p:submenu>
+                        <p:menuitem value="Mobile"/>
+                    </p:submenu>
+                </p:panelMenu>
+                </h:form>
+            </ui:composition>  
+            <script>
+                fuction doReload(){
+                    location.reload();
+
+                }
+            </script>
+        </h:body>
+
+    </f:view>
+</html>

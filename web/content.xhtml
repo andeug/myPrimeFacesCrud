@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/mobile">
+    <head>
+
+    </head>
+    <body>
+    <ui:composition>
+        <div align="center">
+            <h:form id="form">
+                <p:growl id="msgs" showDetail="true"/>
+                <p:commandButton value="Add new Student" type="button" onclick="PF('dlg3').show();" /> 
+                <p:dataTable id="tbl" var="student" draggableColumns="true" resizableColumns="true"  
+                             widgetVar="cellStudent" editMode="row" rows="10" paginator="true" rowsPerPageTemplate="5,10,15" value="#{studentBean.studentList}" 
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             editable="true" style="margin-bottom:20px">
+
+                    <f:facet name="header">
+                        Students Records
+                       <!--  <p:commandButton id="toggler" type="button" value="Columns" style="float:left" />-->
+                       <div style="float:right;padding-top: 5px;">
+                            <!--  <p:columnToggler datasource="tbl" trigger="toggler" />-->
+                            <h:commandLink id="xlsex">
+                                <p:graphicImage value="resources/images/excel.png" width="24"/>
+                                <p:dataExporter type="xls" target=":form:tbl" fileName="Students"  />
+                            </h:commandLink>
+
+                            <h:commandLink id="pdfex">
+                                <p:graphicImage value="resources/images/pdf.png" width="24"/>
+                                <p:dataExporter type="pdf" target=":form:tbl" fileName="Students"/>
+                            </h:commandLink>
+
+                            <h:commandLink id="csvex">
+                                <p:graphicImage value="resources/images/csv.png" width="24"/>
+                                <p:dataExporter type="csv" target=":form:tbl" fileName="Students" />
+                            </h:commandLink>
+                            <p:tooltip id="tp1" for="xlsex" value="Export to Excel"/>
+                            <p:tooltip id="tp2" for="pdfex" value="Export to PDF"/>
+                            <p:tooltip id="tp3" for="csvex" value="Export to CSV"/>
+                        </div>
+                    </f:facet>
+                    <p:ajax event="rowEdit" listener="#{studentBean.onRowEdit}" update=":form:msgs" />
+                    <p:ajax event="rowEditCancel" listener="#{studentBean.onRowCancel}" update=":form:msgs" />
+                    <p:ajax event="cellEdit"  listener="#{studentBean.onCellEdit}" update=":form:msgs" />
+                    <p:column headerText="Id">
+                        <p:cellEditor >
+                            <f:facet name="output"><h:outputText  value="#{student.id}" /></f:facet>
+                            <f:facet name="input"><p:inputText id="modelInput" value="#{student.id}" style="width:100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="First Name">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText  value="#{student.firstname}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{student.firstname}" style="width:100%" label="fname"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Sur-Name">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{student.surname}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{student.surname}" style="width:100%" label="sname"/></f:facet>
+
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Course Name">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{student.coursename}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{student.coursename}" style="width:100%" label="course"/></f:facet>
+
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column headerText="Year of Study">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{student.yrofstudy}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{student.yrofstudy}" style="width:100%" label="study"/></f:facet>
+
+                        </p:cellEditor>
+                    </p:column>
+
+
+                    <p:column exportable="false" style="width:35px">
+                        <p:rowEditor />
+                    </p:column>
+                    <p:column exportable="false" style="width:35px">
+                        <p:commandButton action="#{studentBean.deleteStudent(student.id)}" onclick="myFunction(student.id, student.firstname)" value="Delete"/>
+                    </p:column>
+                </p:dataTable>
+                <script>
+                    function myFunction(var id, var name){
+
+                        alert("Are You Sure you want to delete Student:  " + name + " id: " + id);
+                    }
+                </script>
+                <p:contextMenu for="tbl" widgetVar="cMenu">   
+                    <p:menuitem value="Edit Cell" icon="pi pi-search" onclick="PF('cellStudent').showCellEditor();return false;"/>  
+                    <p:menuitem value="Hide Menu" icon="pi pi-times" onclick="PF('cMenu').hide()"/>  
+                </p:contextMenu> 
+            </h:form>
+        </div>
+        <p:dialog header="Create New Student" widgetVar="dlg3" showEffect="explode" hideEffect="bounce" height="200" width="400">
+            <h:form>
+                <h:panelGrid columns="1">
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Enter First Name:"/>
+                        <h:inputText value="#{studentBean.newStudentList.firstname}"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Enter Surname:"/>
+                        <h:inputText value="#{studentBean.newStudentList.surname}"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Enter Course Name:"/>
+                        <h:inputText value="#{studentBean.newStudentList.coursename}"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Enter Year of Study:"/>
+                        <h:inputText value="#{studentBean.newStudentList.yrofstudy}"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="1">
+                        <p:commandButton value="Create Now" action="#{studentBean.createStudent()}"  oncomplete="PF('dl3').hide()" update=":form:msgs,:form:tbl"/>
+                    </h:panelGrid>
+                </h:panelGrid>  
+
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+</body>
+</html>

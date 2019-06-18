@@ -1,0 +1,43 @@
+
+#page {
+    height:auto;
+    width:100%;
+    margin:0 auto;
+    font: 14px georgia;
+}
+
+#header-container {
+    height:80px;
+}
+
+#header{ 
+    width:100%; 
+    margin:0;
+    font: 14px georgia;
+}
+
+#sidebar {
+    float:left;
+    width:auto;
+    height:auto;
+    margin:0; 
+    font: 14px georgia; 
+}
+#content {
+    width: 100%; 
+    height:100%;
+    font: 14px georgia;
+} 
+#footer-container {
+    height:100px; 
+    margin-top: 20px;
+    width:100%; 
+    clear:both; 
+    display: inline-block;}
+
+#footer {
+    width:100%;
+    height:100%;
+    margin:0 auto ;
+    font: 14px georgia;
+    display: inline-block;}

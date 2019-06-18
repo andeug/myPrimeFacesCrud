@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/mobile">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <link rel="icon" type="image/ico" href="resources/images/MspaceLogo2017.png" />
+                <title>MyTutorial CRUD </title>
+            </f:facet>
+        </h:head>
+        <style>
+            #header{
+                align-content: center;
+            }
+            #side-menu{
+                width: 200px;
+                    float:left;
+            }
+        </style>
+        <h:body>
+               <!--      <p:panel style="height:1000px">-->
+        <h:outputStylesheet library="css" name="stylesheet.css" > </h:outputStylesheet>
+<!---****************************Start of page**********************************-->
+        <div id="page">
+<!---****************************Header**********************************-->
+            <div id="header-container">
+
+                <div id="header"> 
+                    <p:panel style="width:auto;">
+                        <ui:insert name="header">                                
+                            <ui:include src="header.xhtml" />                          
+                        </ui:insert>  
+                    </p:panel>                 
+                </div>  
+
+            </div >
+
+<!---****************************navigation**********************************-->
+            <div id="sidebar"   >   
+                <p:panel  toggleable="true" toggleOrientation="horizontal" toggleSpeed="500" closeSpeed="500" widgetVar="panel" style="height: 80vh;overflow: auto;">
+                    <f:facet name="header">
+                        Hide
+                    </f:facet>
+                    <ui:insert name="rightnav">                               
+                        <ui:include src="menu.xhtml" />                         
+                    </ui:insert>  
+                </p:panel>
+            </div>   
+<!---****************************CONTENT**********************************-->
+
+            <div id="content" >  
+                <p:panel id="cont" style="height: 80vh; overflow-y:  auto; width:auto ;  overflow-x:  auto;  "  > 
+
+                    <ui:insert name="content">                                                      
+                        <ui:include src="content.xhtml" />                        
+                    </ui:insert>   
+                </p:panel>          
+            </div>     
+<!---****************************FOOTER**********************************-->
+            <div id="footer-container">
+                <p:panel style="margin-top: -21px;margin-right: 0;width:auto ;">
+                    <div id="footer" align="center">
+                        <ui:insert name="footer">
+                            <ui:include src="footer.xhtml" />
+                        </ui:insert>
+                    </div>
+                </p:panel>
+            </div> 
+        </div>            
+        </h:body>
+
+    </f:view>
+</html>
+
